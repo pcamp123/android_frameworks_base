@@ -1499,7 +1499,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // SystemUI (status bar) layout policy
         int shortSizeDp = shortSize * DisplayMetrics.DENSITY_DEFAULT / density;
 
-        if (shortSizeDp < 600) {
+        if (shortSizeDp < 200) {
+		mStockUIMode = 1; // Tablet mode for tenderloin
+	}
+	else if (shortSizeDp < 600) {
             mStockUIMode = 0; // Phone Mode
         } else {
             mStockUIMode = 2; // Phablet Mode
