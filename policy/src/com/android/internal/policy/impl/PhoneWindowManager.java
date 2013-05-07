@@ -1500,17 +1500,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         int shortSizeDp = shortSize * DisplayMetrics.DENSITY_DEFAULT / density;
 
 
-	// For Tenderloin
-	ifeq ($(TARGET_DEVICE),tenderloin)
-	   mStockUIMode = 1; //Tablet mode for tenderloin. Temporary till we can fix phablet mode
-	endif // End tenderloin 
-
 	if (shortSizeDp < 600) {
             mStockUIMode = 0; // Phone Mode
         } else {
             mStockUIMode = 2; // Phablet Mode
         } // Tablet Mode will be mode ==1 but no devices default to Tablet mode since 4.2
-        mUserUIMode = Settings.System.getInt(mContext.getContentResolver(),
+	// Setting default for tenderloin to be tablet mode
+        mStockUIMode = (android.os.Build.DEVICE.equals("tenderloin")) ? 1 : 2;
+
+
+	mUserUIMode = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.USER_UI_MODE,mStockUIMode);
         switch (mUserUIMode) {
             case 0 :
